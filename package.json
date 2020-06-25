@@ -1,0 +1,27 @@
+{
+  "name": "paymentrequest-custom-gateway",
+  "version": "1.0.0",
+  "description": "Snipcart Custom Payment Gateway implementation using Payment Request API",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npx vercel deploy",
+    "start": "npx vercel dev",
+    "tunnel": "npx ngrok http 3000 --subdomain=custompayment"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snipcart/paymentrequest-custom-gateway.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snipcart/paymentrequest-custom-gateway/issues"
+  },
+  "homepage": "https://github.com/snipcart/paymentrequest-custom-gateway#readme",
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "vercel": "^19.1.1"
+  }
+}

@@ -1,0 +1,104 @@
+@font-face {
+  font-display:fallback;font-family: Proxima Nova;
+  src: url(./proxima_nova_light.eot?#iefix) format("embedded-opentype"),url(./proxima_nova_light.woff2) format("woff2"),url(./proxima_nova_light.woff) format("woff"),url(./proxima_nova_light.ttf) format("ttf"),url(./proxima_nova_light.svg#ProximaNova-Light) format("svg");
+  font-style: normal;
+  font-weight: 300
+}
+
+@font-face {
+  font-display:fallback;font-family: Proxima Nova;
+  src: url(./proxima_nova_semibold.eot?#iefix) format("embedded-opentype"),url(./proxima_nova_semibold.woff2) format("woff2"),url(./proxima_nova_semibold.woff) format("woff"),url(./proxima_nova_semibold.ttf) format("ttf"),url(./proxima_nova_semibold.svg#ProximaNova-Semibold) format("svg");
+  font-style: normal;
+  font-weight: 600
+}
+html{
+  height: 100%;
+  width: 100%;
+}
+body{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Proxima Nova';
+  font-weight: 300;
+  background: rgb(240,245,246);
+  background: -moz-linear-gradient(180deg, rgba(240,245,246,1) 0%, rgba(230,238,240,1) 100%);
+  background: -webkit-linear-gradient(180deg, rgba(240,245,246,1) 0%, rgba(230,238,240,1) 100%);
+  background: linear-gradient(180deg, rgba(240,245,246,1) 0%, rgba(230,238,240,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f0f5f6",endColorstr="#e6eef0",GradientType=1);
+  margin: 0;
+}
+.container{
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid rgb(255,255,255,0.8);
+  padding: 20px;
+  border-radius: 2px;
+  color:black;
+  min-width: 400px;
+  box-shadow: 0 8px 24px rgba(231,235,237,.6);
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.divider{
+  border-top: solid 1px #eaeaea;
+  margin: 10px 0;
+}
+h1{
+  margin: 0;
+  margin-left: 10px;
+}
+svg{
+  height: 24px;
+  width: 24px;
+}
+table{
+  width: 100%;
+}
+.text--grey{
+  color: rgba(0,0,0,.8)
+}
+td{
+  padding-bottom: 5px;
+}
+td:last-child{
+  text-align: right;
+}
+tfoot{
+  font-weight: 600;
+}
+tfoot tr td{
+  padding-bottom: 0;
+}
+
+button{
+  cursor: pointer;
+  -webkit-appearance: none;
+  color: #fff;
+  background-color: #429bfc;
+  border: 1px solid #3393fc;
+  border-radius: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 16px 24px;
+  display: block;
+  white-space: nowrap;
+}
+button:hover{
+  transition: all .2s;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px rgba(51,147,252,.5);
+  background-color: #1080fb;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
