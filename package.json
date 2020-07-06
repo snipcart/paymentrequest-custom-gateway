@@ -6,7 +6,8 @@
   "scripts": {
     "deploy": "npx vercel deploy",
     "start": "npx vercel dev",
-    "tunnel": "npx ngrok http 3000 --subdomain=custompayment"
+    "tunnel": "npx ngrok http 3000 --subdomain=custompayment",
+    "deploy:prod": "npx vercel --prod"
   },
   "repository": {
     "type": "git",

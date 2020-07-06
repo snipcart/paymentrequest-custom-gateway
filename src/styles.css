@@ -87,9 +87,13 @@ button{
   text-align: center;
   font-size: 12px;
   letter-spacing: 2px;
-  padding: 16px 24px;
+  padding: 0px 24px;
   display: block;
   white-space: nowrap;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 button:hover{
   transition: all .2s;
@@ -101,4 +105,32 @@ button:hover{
 .center{
   margin-left: auto;
   margin-right: auto;
+}
+
+#loader{
+  display:flex;
+  justify-content: center;
+  margin: 30px;
+}
+.hidden{
+  display:none !important;
+}
+#button_loader{
+  margin-right: 10px;
+}
+@keyframes spin {
+  0%   {
+      transform:rotate(0deg);
+  }
+  100% {
+      transform:rotate(360deg);
+  }
+}
+img{
+  animation: spin 0.7s linear 0s infinite;
+}
+
+.content{
+  margin: 40px 0;
+  text-align: center;
 }

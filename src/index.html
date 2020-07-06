@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,15 +21,36 @@
       </svg>
       <h1>Replica zone</h1>
     </div>
-    <div class="divider"></div>
-    <table>
-      <tbody>
-      </tbody>
-      <tfoot>
-      </tfoot>
-    </table>
-    <div class="divider"></div>
-    <button class="center" id="pay">Pay now</button>
+    <div id="loader">
+      <img src="./loader.svg" width="75" />
+    </div>
+    <div id="compatibility" class="hidden content">
+      Payment Request Api is only supported for Edge, Chrome, Safari, Firefox.
+      <br/>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API">Read more</a>
+    </div>
+    <div id="invoice_not_found" class="hidden content">
+      Failed to retrieve invoice, please try again later.
+    </div>
+    <div id="content" class="hidden">
+      <div class="divider"></div>
+      <table>
+        <tbody>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+      <div class="divider"></div>
+      <button class="center" id="pay">
+
+        <span id="button_loader" class="hidden">
+          <img src="./white_loader.svg" width="25" />
+        </span>
+        <span>
+          Pay with Google Pay
+        </span>
+      </button>
+    </div>
   </div>
 </body>
 

@@ -3,6 +3,7 @@ if (window.PaymentRequest) {
   let paymentRequest
   let paymentDetails
   let paymentSession
+  let currencyFormatter
 
   document.addEventListener("DOMContentLoaded", async () => {
     await fetchPaymentSession()
@@ -11,21 +12,24 @@ if (window.PaymentRequest) {
     bindBuyButton()
   })
 
+  // Get the payment session from Snipcart
   const fetchPaymentSession = async () => {
     const publicToken = new URLSearchParams(window.location.search).get('publicToken')
-    const response = await fetch(`https://payment.snipcart.com/api/public/custom-payment-gateway/payment-session?publicToken=${publicToken}`)
-
-    if (!response.ok) {
-      throw "Invalid token"
+    try {
+      const response = await axios.get(`/api/payment-session?publicToken=${publicToken}`)
+      paymentSession = response.data
+      document.querySelector('#loader').classList.add('hidden')
+      document.querySelector('#content').classList.remove('hidden')
+    } catch (e) {
+      document.querySelector("#invoice_not_found").classList.remove("hidden")
+      document.querySelector('#loader').classList.add('hidden')
+      console.error(e)
     }
-
-    paymentSession = await response.json()
-    console.log(paymentSession)
   }
 
+  // Create the payment request (Using the Payment Request API)
   const createPaymentRequest = () => {
     const currency = paymentSession.invoice.currency
-
 
     const googlePaymentDataRequest = {
       environment: 'TEST',
@@ -92,11 +96,11 @@ if (window.PaymentRequest) {
     )
   }
 
+  // Add the buy button Event Listener
   const bindBuyButton = () => {
     paymentRequest.canMakePayment()
       .then(function (result) {
         if (result) {
-          // Display PaymentRequest dialog on interaction with the existing checkout button
           document.getElementById('pay')
             .addEventListener('click', onBuyClicked);
         }
@@ -105,7 +109,10 @@ if (window.PaymentRequest) {
         console.log(err)
       })
   }
+
+  // Add the event listener on the Buy button
   const onBuyClicked = async () => {
+    document.querySelector('#button_loader').classList.remove('hidden')
     const canMakePayment = await paymentRequest.canMakePayment()
     if (!canMakePayment) {
       alert('Cant make payment')
@@ -113,25 +120,27 @@ if (window.PaymentRequest) {
     }
     try {
       const paymentRes = await paymentRequest.show()
-      handlePayment(paymentRes)
+      await handlePayment(paymentRes)
     } catch (e) {
       console.log(e)
+    } finally {
+      document.querySelector('#button_loader').classList.add('hidden')
     }
   }
 
+  // Payment completed callback
   const handlePayment = async (paymentRes) => {
-    console.log("success")
     paymentRes.complete('success')
-    // console.log(paymentRes)
-    try{
-      const res = await axios.post('/api/confirm-payment', paymentRes)
-      console.log(res)
-    }catch(e){
+    try {
+      const res = await axios.post(`/api/confirm-payment?sessionId=${paymentSession.id}`, paymentRes)
+      window.location.href = res.data.returnUrl
+    } catch (e) {
       console.error(e)
     }
-    
+
   }
 
+  // Display order items in the checkout
   const renderItems = () => {
     const tbody = document.querySelector('tbody')
     paymentSession.invoice.items.forEach(i => {
@@ -148,7 +157,7 @@ if (window.PaymentRequest) {
       labelElement.appendChild(label)
 
       const priceElement = document.createElement('td')
-      const price = document.createTextNode(i.amount)
+      const price = document.createTextNode(formatCurrency(i.amount))
       priceElement.appendChild(price)
 
       row.appendChild(labelElement)
@@ -163,7 +172,7 @@ if (window.PaymentRequest) {
     totalElement.appendChild(label)
 
     const priceElement = document.createElement('td')
-    const price = document.createTextNode(paymentDetails.total.amount.value)
+    const price = document.createTextNode(formatCurrency(paymentDetails.total.amount.value))
     priceElement.appendChild(price)
 
     row.appendChild(totalElement)
@@ -172,5 +181,22 @@ if (window.PaymentRequest) {
     tfoot.appendChild(row)
   }
 
+  const formatCurrency = (amout) => {
+    if (currencyFormatter == null) {
+      let lang = 'en-US'
+      if (navigator.language != null) {
+        lang = navigator.language
+      }
+      currencyFormatter = new Intl.NumberFormat(lang, { style: 'currency', currency: paymentSession.invoice.currency })
+    }
+    return currencyFormatter.format(amout)
+  }
+
+
+} else {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector('#compatibility').classList.remove('hidden')
+    document.querySelector('#loader').classList.add('hidden')
+  })
 
 }
