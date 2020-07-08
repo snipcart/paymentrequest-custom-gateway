@@ -1,8 +1,9 @@
 # Integrating a custom payment gateway
-Before you get started, make sure you [configured your merchant dashboard](/v3/custom-payment-gateway/merchant-configuration).
+Before you get started, make sure you [configured your merchant dashboard](/v3/custom-payment-gateway/merchant-configuration) and have a [basic understanding](/v3/custom-payment-gateway/technical-reference) of how the Custom payment gateway works
 
 ## 1. Creating the checkout page
-The first step to integrate a custom payment gateway, is to create the checkout page. This is the page the user will be redirected to when using the custom gateway. We will redirect them to `YOUR_CHECKOUT_URL.com?publicToken=<THE_TOKEN>`.  
+The first step to integrate a custom payment gateway, is to create the checkout page. This is the page the user will be redirected to when using the custom gateway. When redirecting to this page, we will add the `publicToken` query param.  
+> ex: `YOUR_CHECKOUT_URL.com?publicToken=<THE_TOKEN>`  
 
 In the checkout page, you will want to retrieve information about the order. To do so, you will need to call our payment-session API endpoint. This will allow you to display order information on the checkout page.
 Learn how to [retrieve information about the payment session](/v3/custom-payment-gateway/definition#retrieve-a-payment-session).
@@ -14,9 +15,9 @@ This is how our demo checkout page looks. It uses the [Payment Request API](http
 ## 2. Payment methods endpoint
 The second step to integrate a custom payment gateway, is to create the payment methods endpoint. The `publicToken` will be provided in the request body. 
 
-__Make sure you [validate](/v3/custom-payment-gateway/definition#validate-public-token) the request was made by our API.__
+__Make sure you [validate](/v3/custom-payment-gateway/reference#validate-public-token) the request was made by our API.__
 
-[Payment methods webhook reference](/v3/custom-payment-gateway/definition#payment-methods).
+[Payment methods webhook reference](/v3/custom-payment-gateway/reference#payment-methods).
 ```javascript
 async (req, res) => {
   if (req.body && req.body.publicToken) {
@@ -46,7 +47,7 @@ async (req, res) => {
 ## 3. Confirm payment
 This endpoint is used to validate the Payment with Snipcart when the payment is approved by your payment gateway. It should be called with the payment information. This has to be done server-side since we don't want to leak our __secret__ API Key.
 
-[Create payment reference](/v3/custom-payment-gateway/definition#create-payment).
+[Create payment reference](/v3/custom-payment-gateway/reference#create-payment).
 ```javascript
 async (req, res) => {
 
@@ -92,9 +93,9 @@ async (req, res) => {
 ## 4. Refund (Optional)
 This will be called when refunding an order via the merchant dashboard.
 
-__Make sure you [validate](/v3/custom-payment-gateway/definition#validate-public-token) the request was made by our API.__
+__Make sure you [validate](/v3/custom-payment-gateway/reference#validate-public-token) the request was made by our API.__
 
-[Refund webhook reference](/v3/custom-payment-gateway/definition#refund)
+[Refund webhook reference](/v3/custom-payment-gateway/reference#refund)
 ```javascript
 async (req, res) => {
   const { transactionId } = req.query

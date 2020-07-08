@@ -222,7 +222,7 @@ curl --request POST \
 </div>
 </div>
 
-# Your webhooks
+# Webhooks
 Those are the API endpoints you will need to create to integrate your own Payment gateway. Our API will call them with a `publicToken` in the request body.   
 __Don't forget to validate the request by using the [`/validate`](#get---validate) endpoint__
 
