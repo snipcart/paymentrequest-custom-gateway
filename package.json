@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/snipcart/paymentrequest-custom-gateway#readme",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^1.4.0"
   },
   "devDependencies": {
     "vercel": "^19.1.1"
